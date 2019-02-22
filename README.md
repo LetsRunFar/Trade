@@ -1,21 +1,20 @@
-# test
+# Trade
 
-> A Vue.js project
+> vue + webpack + express 移动端项目，支持node本地服务器测试接口
 
-## Build Setup
+## 运行步骤
 
 ``` bash
-# install dependencies
+# 安装
 npm install
 
-# serve with hot reload at localhost:8080
+# 运行前端项目（热更新）
 npm run dev
 
-# build for production with minification
+# 运行node服务器（测试接口）
+cd backEnd
+npm test
+
+# 打包
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
