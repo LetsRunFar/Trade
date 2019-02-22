@@ -14,7 +14,7 @@ function domain() {
       break;
     default: // 开发环境配置
       domain = {
-        'mainUrl': 'http://192.168.168.157/api'
+        'mainUrl': 'http://localhost/api'
       }
       break;
   }
