@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "测试服务器，调用接口",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "lx",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
