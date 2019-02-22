@@ -1,5 +1,5 @@
 const getApi = {
-
+  mobileTypeList: '/mobileTypeList'
 }
 const postApi = {
   login: '/login',

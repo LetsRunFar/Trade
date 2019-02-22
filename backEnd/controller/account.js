@@ -1,16 +1,17 @@
 const handle = require('../middleware/handle')();
 const mock = require('../mock/account')
 const login = (req, res) => {
-  handle.sendSuccess(req, res, mock)
+  handle.sendSuccess(req, res, mock.login)
 }
 const logout = (req, res) => {
-  handle.sendSuccess(req, res, {
-    success: true,
-    msg: '退出登录成功'
-  })
+  handle.sendSuccess(req, res, mock.logout)
+}
+const mobileTypeList = (req, res) => {
+  handle.sendSuccess(req, res, mock.mobileTypeList)
 }
 
 module.exports = {
   login,
-  logout
+  logout,
+  mobileTypeList
 }

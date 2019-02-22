@@ -1,7 +1,6 @@
 <template>
   <div>
     <login-form></login-form>
-    <input type="text" v-model="lx">
   </div>
 </template>
 

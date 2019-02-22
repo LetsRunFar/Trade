@@ -1,8 +1,8 @@
 <template>
   <div class="form-wrap">
     <p class="each-input userName">
-      <input class="signle-input" placeholder="邮箱/手机号" type="text" />
-      <span class="mobile-type" v-show="showMobileHead">+86</span>
+      <input class="signle-input" placeholder="邮箱/手机号" v-model="userName" type="text" />
+      <span @click="getMobileTypeList" class="mobile-type" v-show="showMobileHead">{{mobileType}}</span>
     </p>
     <p class="each-input password">
       <input
@@ -12,21 +12,31 @@
         :type="hidePwd ? 'password' : 'text'">
       <i @click="hidePwd = !hidePwd" :class="{'fa-eye-slash': hidePwd, 'fa-eye': !hidePwd ,'fa': true}"></i>
     </p>
-
+    <popup v-model="showMobileHeadPop" height="60%" position="bottom">
+      <ul class="mobile-type-list">
+        <li @click="setMobileType(item)" v-for="(item,i) in mobileTypeList" :key="'mobileType' + i">
+          <span>+{{item.areaNumber}}</span>
+          <span>{{item.areaName}}</span>
+        </li>
+      </ul>
+    </popup>
   </div>
 </template>
 
 <script>
-  import {Selector} from 'vux'
+  import {Popup} from 'vux'
+  import HttpMethods from "../assets/js/HttpMethods";
 
   export default {
     name: "loginForm",
-    components: {Selector},
+    components: {Popup},
     data(){
       return {
         hidePwd: true,
+        showMobileHeadPop: false,
         userName: '',
-        lx: '111'
+        mobileTypeList: [],
+        mobileType: '+86'
       }
     },
     methods: {
@@ -38,9 +48,16 @@
           console.log($el)
         }
       },
-      setVal(el){
-        this.lx = el.target.value
-        console.log(this.lx)
+      async getMobileTypeList(){
+        let res = await HttpMethods.mobileTypeList()
+        if(res.success && res.data) {
+          this.mobileTypeList = res.data
+          this.showMobileHeadPop = true
+        }
+      },
+      setMobileType(mobileType){
+        this.mobileType = `+${mobileType.areaNumber}`
+        this.showMobileHeadPop = false
       }
     },
     computed: {
@@ -114,5 +131,15 @@
 
   ::-webkit-input-placeholder {
     color: #d0d0d0;
+  }
+  .mobile-type-list{
+    background-color: #ffffff;
+    line-height: 1rem;
+    li{
+      border-bottom: solid 1px #ccc;
+      span{
+        margin: 0 5px;
+      }
+    }
   }
 </style>

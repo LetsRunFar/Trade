@@ -9,5 +9,8 @@ export default {
   },
   logout() {
     return http.post(mainUrl + '/logout')
+  },
+  mobileTypeList(){
+    return http.get(mainUrl + '/mobileTypeList')
   }
 }
