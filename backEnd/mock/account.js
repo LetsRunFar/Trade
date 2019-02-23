@@ -249,6 +249,14 @@ const mobileTypeList = {
   "success": true,
   "message": ""
 }
+const getValidMsg = {
+  code: "",
+  data: "",
+  success: true,
+  msg:"手机短信验证码已发送至131***436，请您及时查收！",
+  msgEmpty:false
+}
+
 module.exports = {
-  login,logout,mobileTypeList
+  login,logout,mobileTypeList,getValidMsg
 }

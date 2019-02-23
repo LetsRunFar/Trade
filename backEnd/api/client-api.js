@@ -1,5 +1,6 @@
 const getApi = {
-  mobileTypeList: '/mobileTypeList'
+  mobileTypeList: '/mobileTypeList',
+  getValidMsg: '/getValidMsg'
 }
 const postApi = {
   login: '/login',

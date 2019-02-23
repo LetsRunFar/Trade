@@ -12,5 +12,8 @@ export default {
   },
   mobileTypeList(){
     return http.get(mainUrl + '/mobileTypeList')
+  },
+  getValidMsg(){
+    return http.get(mainUrl + '/getValidMsg')
   }
 }

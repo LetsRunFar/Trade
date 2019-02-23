@@ -9,9 +9,13 @@ const logout = (req, res) => {
 const mobileTypeList = (req, res) => {
   handle.sendSuccess(req, res, mock.mobileTypeList)
 }
+const getValidMsg = (req, res) => {
+  handle.sendSuccess(req, res, mock.getValidMsg)
+}
 
 module.exports = {
   login,
   logout,
-  mobileTypeList
+  mobileTypeList,
+  getValidMsg
 }

@@ -12,6 +12,12 @@
         :type="hidePwd ? 'password' : 'text'">
       <i @click="hidePwd = !hidePwd" :class="{'fa-eye-slash': hidePwd, 'fa-eye': !hidePwd ,'fa': true}"></i>
     </p>
+    <p class="each-input validMsg" v-show="showValidMsg">
+      <input class="signle-input" placeholder="短信验证码" v-model="validMsg" type="text" />
+      <span @click="getValidMsg" class="register-memberyzm">
+        获取验证码
+      </span>
+    </p>
     <popup v-model="showMobileHeadPop" height="60%" position="bottom">
       <ul class="mobile-type-list">
         <li @click="setMobileType(item)" v-for="(item,i) in mobileTypeList" :key="'mobileType' + i">
@@ -25,7 +31,8 @@
 
 <script>
   import {Popup} from 'vux'
-  import HttpMethods from "../assets/js/HttpMethods";
+  import HttpMethods from '../assets/js/HttpMethods'
+  import {mobile} from '@/assets/js/lib/validator'
 
   export default {
     name: "loginForm",
@@ -34,9 +41,11 @@
       return {
         hidePwd: true,
         showMobileHeadPop: false,
+        showValidMsg: false,
         userName: '',
         mobileTypeList: [],
-        mobileType: '+86'
+        mobileType: '+86',
+        validMsg: ''
       }
     },
     methods: {
@@ -58,15 +67,32 @@
       setMobileType(mobileType){
         this.mobileType = `+${mobileType.areaNumber}`
         this.showMobileHeadPop = false
+      },
+      async getValidMsg(){
+        let res = await HttpMethods.getValidMsg()
+        if(res.success){
+          this.$vux.toast.show(res.msg)
+        }
       }
     },
     computed: {
       showMobileHead() {
         if (this.userName.length > 0) {
           if (this.userName.indexOf('@') !== -1) return false
-          return true;
+          return true
         }
         return false
+      }
+    },
+    watch: {
+      userName: {
+        handler(val){
+          mobile('',val).then(() => {
+            this.showValidMsg = true
+          }).catch(err => {
+            this.showValidMsg = false
+          })
+        }
       }
     }
   }
@@ -88,6 +114,8 @@
     display: flex;
     align-items: center;
     margin: 0 .3rem;
+    color: #d0d0d0;
+    font-size: .373rem;
     &.userName {
       border-bottom: 2px solid #1a253f;
       background: url("/static/images/Mobile-phone-number.png") no-repeat 0.1rem;
@@ -95,20 +123,31 @@
       .mobile-type {
         display: inline-block;
         height: 100%;
-        color: #d0d0d0;
         padding: 0 .2rem;
         border-left: 1px solid #455e77;
-        font-size: .373rem;
         line-height: 1.5;
       }
     }
     &.password {
+      border-bottom: 2px solid #1a253f;
       background: url("/static/images/s1.png") no-repeat 0.1rem;
       background-size: 0.55rem auto;
       background-position: 0.04rem;
       & > i {
         color: #d0d0d0;
         margin-right: .3rem;
+      }
+    }
+    &.validMsg{
+      background: url("/static/images/yzm.png") no-repeat .1rem;
+      background-size: .6rem auto;
+      .register-memberyzm{
+        display: inline-block;
+        height: 100%;
+        color: #d0d0d0;
+        padding: 0 .2rem;
+        border-left: 1px solid #455e77;
+        line-height: 1.5;
       }
     }
   }
@@ -119,7 +158,6 @@
     border: 0;
     height: 100%;
     width: 100%;
-    font-size: .373rem;
     text-indent: 2px;
     -webkit-box-flex: 1;
     -ms-flex: 1;
