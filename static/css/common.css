@@ -19,3 +19,12 @@ body{
   background: url("/static/images/s1.png") no-repeat;
   background-size: contain;
 }
+.vux-header[empty]{
+  background-color: transparent;
+}
+.vux-header[fixed]{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

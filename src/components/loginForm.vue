@@ -1,19 +1,19 @@
 <template>
   <div class="form-wrap">
     <p class="each-input userName">
-      <input class="signle-input" placeholder="邮箱/手机号" v-model="userName" type="text" />
+      <input class="signle-input" placeholder="邮箱/手机号" v-model="userNameModel" type="text" />
       <span @click="getMobileTypeList" class="mobile-type" v-show="showMobileHead">{{mobileType}}</span>
     </p>
     <p class="each-input password">
       <input
+        v-model="passwordModel"
         class="signle-input"
-        @input="($el) => {validate($el,['required'])}"
         placeholder="密码"
         :type="hidePwd ? 'password' : 'text'">
       <i @click="hidePwd = !hidePwd" :class="{'fa-eye-slash': hidePwd, 'fa-eye': !hidePwd ,'fa': true}"></i>
     </p>
     <p class="each-input validMsg" v-show="showValidMsg">
-      <input class="signle-input" placeholder="短信验证码" v-model="validMsg" type="text" />
+      <input class="signle-input" placeholder="短信验证码" v-model="validMsgModel" type="text" />
       <span @click="getValidMsg" class="register-memberyzm">
         获取验证码
       </span>
@@ -42,10 +42,11 @@
         hidePwd: true,
         showMobileHeadPop: false,
         showValidMsg: false,
-        userName: '',
+        userNameModel: '',
+        passwordModel: '',
+        validMsgModel: '',
         mobileTypeList: [],
-        mobileType: '+86',
-        validMsg: ''
+        mobileType: '+86'
       }
     },
     methods: {
@@ -73,19 +74,44 @@
         if(res.success){
           this.$vux.toast.show(res.msg)
         }
+      },
+      async validForm(){
+        if (this.userNameModel.length === 0) {
+          this.$vux.toast.text('请输入邮箱/手机号')
+          return
+        } else if(this.passwordModel.length === 0){
+          this.$vux.toast.text('请输入密码')
+          return
+        }
+        if(this.showValidMsg && this.validMsgModel.length === 0){
+          this.$vux.toast.text('请输入验证码')
+          return
+        }
+        let param = {
+          userName: this.userNameModel,
+          password: this.passwordModel,
+          validMsg: this.validMsgModel
+        }
+        let res = await HttpMethods.login()
+        if(res.success){
+          // 登陆成功，跳转到首页
+          this.$router.push({
+            name: 'index'
+          })
+        }
       }
     },
     computed: {
       showMobileHead() {
-        if (this.userName.length > 0) {
-          if (this.userName.indexOf('@') !== -1) return false
+        if (this.userNameModel.length > 0) {
+          if (this.userNameModel.indexOf('@') !== -1) return false
           return true
         }
         return false
       }
     },
     watch: {
-      userName: {
+      userNameModel: {
         handler(val){
           mobile('',val).then(() => {
             this.showValidMsg = true
