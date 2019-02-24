@@ -9,7 +9,6 @@
       <login-form ref="loginForm"></login-form>
       <p class="forget-wrap">
         <router-link style="color: #0297e2;" to="/forget">忘记密码？</router-link>
-
       </p>
       <div class="btn-wrap">
         <x-button @click.native="doLogin" class="login-btn">登录</x-button>

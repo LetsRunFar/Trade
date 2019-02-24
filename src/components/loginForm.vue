@@ -1,23 +1,25 @@
 <template>
   <div class="form-wrap">
-    <p class="each-input userName">
-      <input class="signle-input" placeholder="邮箱/手机号" v-model="userNameModel" type="text" />
-      <span @click="getMobileTypeList" class="mobile-type" v-show="showMobileHead">{{mobileType}}</span>
-    </p>
-    <p class="each-input password">
-      <input
-        v-model="passwordModel"
-        class="signle-input"
-        placeholder="密码"
-        :type="hidePwd ? 'password' : 'text'">
-      <i @click="hidePwd = !hidePwd" :class="{'fa-eye-slash': hidePwd, 'fa-eye': !hidePwd ,'fa': true}"></i>
-    </p>
-    <p class="each-input validMsg" v-show="showValidMsg">
-      <input class="signle-input" placeholder="短信验证码" v-model="validMsgModel" type="text" />
-      <span @click="getValidMsg" class="register-memberyzm">
+    <div>
+      <p class="each-input userName">
+        <input class="signle-input" placeholder="邮箱/手机号" v-model="userNameModel" type="text" />
+        <span @click="getMobileTypeList" class="mobile-type" v-show="showMobileHead">{{mobileType}}</span>
+      </p>
+      <p class="each-input password">
+        <input
+          v-model="passwordModel"
+          class="signle-input"
+          placeholder="密码"
+          :type="hidePwd ? 'password' : 'text'">
+        <i @click="hidePwd = !hidePwd" :class="{'fa-eye-slash': hidePwd, 'fa-eye': !hidePwd ,'fa': true}"></i>
+      </p>
+      <p class="each-input validMsg" v-if="showValidMsg">
+        <input class="signle-input" placeholder="短信验证码" v-model="validMsgModel" type="text" />
+        <span @click="getValidMsg" class="register-memberyzm">
         获取验证码
       </span>
-    </p>
+      </p>
+    </div>
     <popup v-model="showMobileHeadPop" height="60%" position="bottom">
       <ul class="mobile-type-list">
         <li @click="setMobileType(item)" v-for="(item,i) in mobileTypeList" :key="'mobileType' + i">
@@ -135,15 +137,17 @@
   .each-input {
     padding: .5rem 0;
     padding-left: .7rem;
-    border: none;
     height: .6rem;
     display: flex;
     align-items: center;
     margin: 0 .3rem;
     color: #d0d0d0;
     font-size: .373rem;
+    border-bottom: 2px solid #1a253f;
+    &:last-child{
+      border: none;
+    }
     &.userName {
-      border-bottom: 2px solid #1a253f;
       background: url("/static/images/Mobile-phone-number.png") no-repeat 0.1rem;
       background-size: 0.38rem auto;
       .mobile-type {
@@ -155,7 +159,6 @@
       }
     }
     &.password {
-      border-bottom: 2px solid #1a253f;
       background: url("/static/images/s1.png") no-repeat 0.1rem;
       background-size: 0.55rem auto;
       background-position: 0.04rem;

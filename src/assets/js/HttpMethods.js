@@ -15,5 +15,11 @@ export default {
   },
   getValidMsg(){
     return http.get(mainUrl + '/getValidMsg')
+  },
+  queryOrderIn(){
+    return http.get(mainUrl + '/queryOrderIn')
+  },
+  queryOrderOut(){
+    return http.get(mainUrl + '/queryOrderOut')
   }
 }

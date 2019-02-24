@@ -1,6 +1,8 @@
 const getApi = {
   mobileTypeList: '/mobileTypeList',
-  getValidMsg: '/getValidMsg'
+  getValidMsg: '/getValidMsg',
+  queryOrderIn: '/queryOrderIn',
+  queryOrderOut: '/queryOrderOut',
 }
 const postApi = {
   login: '/login',
