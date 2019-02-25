@@ -7,6 +7,8 @@
 ``` bash
 # 安装
 npm install
+cd backEnd
+npm install
 
 # 运行前端项目（热更新）
 npm run dev
