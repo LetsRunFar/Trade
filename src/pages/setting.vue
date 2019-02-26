@@ -2,7 +2,7 @@
   <div class="setting-wrap">
     <x-header class="header" :left-options="{backText: ''}" commonColor fixed>用户设置</x-header>
     <group>
-      <cell-box class="links" commonColor is-link :link="{path: '/bindEamil'}">
+      <cell-box class="links" commonColor is-link :link="{path: '/bindEmail'}">
         邮箱绑定
       </cell-box>
       <cell-box class="links" commonColor is-link :link="{path: '/bindAccount'}">
