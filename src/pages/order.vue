@@ -176,8 +176,9 @@
   }
 
   .search-wrap {
-    position: relative;
+    position: absolute;
     padding: 0 0.3rem;
+    width: calc(100% - 0.6rem);
     z-index: 1;
     color: #ddd;
     font-size: 0.373rem;
@@ -232,10 +233,7 @@
 
   .list-wrap {
     width: 100%;
-    position: absolute;
-    z-index: 0;
     top: 2.2rem;
-    left: 0;
   }
 
   .slide-enter-active, .slide-leave-active {
