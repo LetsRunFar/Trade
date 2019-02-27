@@ -1,14 +1,22 @@
 <template>
   <div class="form-wrap">
-    <p class="each-input userName">
-      <input class="signle-input" placeholder="邮箱/手机号" v-model="userNameModel" type="text" />
+    <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>邮箱绑定</x-header>
+    <p class="each-input password" commonColor>
+      <input class="signle-input" placeholder="请输入登录密码" v-model="userNameModel" type="text" />
     </p>
+    <p class="each-input email" commonColor>
+      <input class="signle-input" placeholder="请输入邮箱" v-model="userNameModel" type="text" />
+    </p>
+    <x-button primary style="font-size: 0.373rem; margin-top: 1rem; width: 90%; margin-left: 5%; line-height: 2.8;">确定</x-button>
   </div>
 </template>
 
 <script>
+  import {XHeader, XButton} from 'vux'
+
   export default {
     name: "bindEmail",
+    components: {XHeader, XButton},
     data(){
       return {
         userNameModel: ''
@@ -19,25 +27,26 @@
 
 <style lang="less" scoped>
   .form-wrap {
-    margin: 1rem;
-    background-color: red;
+    padding-top: 46px;
+    min-height: 100vh;
+    background-color: #050c1e;
   }
   .each-input {
-    padding: .5rem 0;
-    padding-left: .7rem;
+    margin: 0.3rem 0;
+    padding: .3rem 0;
+    padding-left: 1rem;
     height: .6rem;
     display: flex;
     align-items: center;
-    margin: 0 .3rem;
     color: #d0d0d0;
     font-size: .373rem;
     border-bottom: 2px solid #1a253f;
     &:last-child{
       border: none;
     }
-    &.userName {
-      background: url("/static/images/Mobile-phone-number.png") no-repeat 0.1rem;
-      background-size: 0.38rem auto;
+    &.password {
+      background: url("/static/images/s1.png") no-repeat 0.3rem;
+      background-size: 0.55rem auto;
       .mobile-type {
         display: inline-block;
         height: 100%;
@@ -46,26 +55,19 @@
         line-height: 1.5;
       }
     }
-    &.password {
-      background: url("/static/images/s1.png") no-repeat 0.1rem;
+    &.email {
+      background: url("/static/images/mail.png") no-repeat 0.3rem;
       background-size: 0.55rem auto;
-      background-position: 0.04rem;
-      & > i {
-        color: #d0d0d0;
-        margin-right: .3rem;
-      }
-    }
-    &.validMsg{
-      background: url("/static/images/yzm.png") no-repeat .1rem;
-      background-size: .6rem auto;
-      .register-memberyzm{
+      .mobile-type {
         display: inline-block;
         height: 100%;
-        color: #d0d0d0;
         padding: 0 .2rem;
         border-left: 1px solid #455e77;
         line-height: 1.5;
       }
+    }
+    .signle-input{
+      color: #ffffff;
     }
   }
 </style>
