@@ -4,6 +4,7 @@ import Login from '@/pages/login'
 import Order from '@/pages/order'
 import Setting from '@/pages/setting'
 import BindEmail from '@/pages/bindEmail'
+import Mine from '@/pages/mine'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/bindEmail',
       name: 'bindEmail',
       component: BindEmail
+    },
+    {
+      path: '/mine',
+      name: 'mine',
+      component: Mine
     }
   ]
 })
