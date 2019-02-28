@@ -2,10 +2,10 @@
   <div class="form-wrap">
     <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>邮箱绑定</x-header>
     <p class="each-input password" commonColor>
-      <input class="signle-input" placeholder="请输入登录密码" v-model="userNameModel" type="text" />
+      <input class="signle-input" placeholder="请输入登录密码" v-model="passwordModel" type="password" />
     </p>
     <p class="each-input email" commonColor>
-      <input class="signle-input" placeholder="请输入邮箱" v-model="userNameModel" type="text" />
+      <input class="signle-input" placeholder="请输入邮箱" v-model="emailModel" type="text" />
     </p>
     <x-button primary style="font-size: 0.373rem; margin-top: 1rem; width: 90%; margin-left: 5%; line-height: 2.8;">确定</x-button>
   </div>
@@ -19,7 +19,8 @@
     components: {XHeader, XButton},
     data(){
       return {
-        userNameModel: ''
+        passwordModel: '',
+        emailModel: ''
       }
     }
   }
@@ -32,8 +33,8 @@
     background-color: #050c1e;
   }
   .each-input {
-    margin: 0.3rem 0;
-    padding: .3rem 0;
+    margin: .3rem 0;
+    padding: .2rem 0;
     padding-left: 1rem;
     height: .6rem;
     display: flex;
@@ -67,7 +68,12 @@
       }
     }
     .signle-input{
-      color: #ffffff;
+      background: transparent;
+      color: #d0d0d0;
+      border: 0;
+      height: 100%;
+      width: 100%;
+      text-indent: 2px;
     }
   }
 </style>

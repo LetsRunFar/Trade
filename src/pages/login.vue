@@ -91,12 +91,4 @@
       border-radius: 3px;
     }
   }
-  @keyframes ufo {
-    0% {
-      transform: translateY(5px);
-    }
-    100% {
-      transform: translateY(-5px);
-    }
-  }
 </style>
