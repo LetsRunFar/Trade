@@ -5,11 +5,17 @@ import Order from '@/pages/order'
 import Setting from '@/pages/setting'
 import BindEmail from '@/pages/bindEmail'
 import Mine from '@/pages/mine'
+import Index from '@/pages/index'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'index',
+      component: Index
+    },
     {
       path: '/login',
       name: 'login',

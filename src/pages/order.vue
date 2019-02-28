@@ -233,7 +233,9 @@
 
   .list-wrap {
     width: 100%;
-    top: 2.2rem;
+  }
+  .list-scroll{
+    min-height: 80vh;
   }
 
   .slide-enter-active, .slide-leave-active {
