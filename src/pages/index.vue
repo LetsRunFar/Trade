@@ -22,7 +22,7 @@
             v-model="searchModel.area"
             :options="otcCountrysMap">
           </selector>
-          <x-button @click.native="queryTrade" primary style="font-size: 0.373rem; margin-top: 0.3rem;">提交</x-button>
+          <x-button primary style="font-size: 0.373rem; margin-top: 0.3rem;">提交</x-button>
         </group>
       </div>
     </transition>
@@ -33,15 +33,7 @@
       </tab>
       <scroller class="list-scroll">
         <div v-if="tradeList.length <= 0" class="null-wrap"></div>
-        <div class="each-order" commonColor v-for="(item, index) in tradeList" :key="'order' + index">
-          <p class="clear header">
-            <span class="fl">{{item.name}}</span>
-            <span class="fr">{{item.time}}</span>
-          </p>
-          <p class="tl body">买家：{{item.fromName}}</p>
-          <p class="tl body">卖家：{{item.toName}}</p>
-          <p class="tl body">价格：{{item.price}}</p>
-        </div>
+        <trade-item v-else class="each-trade" v-for="(item, index) in tradeList" :item="item" :key="'trade' + index"/>
       </scroller>
     </div>
   </div>
@@ -49,10 +41,11 @@
 
 <script>
   import {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller} from 'vux'
+  import TradeItem from '@/components/tradeItem'
 
   export default {
     name: "index",
-    components: {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller},
+    components: {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller, TradeItem},
     data() {
       return {
         showSearchWrap: false,
@@ -60,55 +53,11 @@
           class: '',
           area: ''
         },
-        AdList: {},
-        Enums: {
-          class: [
-            {
-              key: '1',
-              value: 'UT'
-            },
-            {
-              key: '3',
-              value: 'ETH'
-            },
-            {
-              key: '22',
-              value: 'UET'
-            },
-            {
-              key: '27',
-              value: 'USDT'
-            }
-          ],
-          area: [
-            {
-              key: '2',
-              value: '中国'
-            },
-            {
-              key: '3',
-              value: '澳门'
-            },
-            {
-              key: '4',
-              value: '香港'
-            },
-            {
-              key: '5',
-              value: '韩国'
-            },
-            {
-              key: '6',
-              value: '欧元'
-            },
-            {
-              key: '7',
-              value: '日本'
-            }
-          ]
-        },
-        tradeList: []
+        AdList: {}
       }
+    },
+    beforeMount(){
+      this.queryTrade()
     },
     methods: {
       queryTrade() {
@@ -162,7 +111,10 @@
               "singleMaxMoneyTotal": "1249.5",
               "singleMinMoneyTotal": "150.0",
               "type": "1"
-            }], "pageNum": "1", "rowsPerPage": "10", "rowsTotal": "2"
+            }],
+            "pageNum": "1",
+            "rowsPerPage": "10",
+            "rowsTotal": "2"
           },
           "bindPayTypeMap": {},
           "coinTypeEnNameMap": {"1": "UT", "3": "ETH", "22": "UET", "27": "USDT"},
@@ -182,6 +134,7 @@
           "priceOfUSDT": "6.8343",
           "realAuths": false
         }
+        this.showSearchWrap = false
       },
       queryTradeIn() {
 
@@ -200,12 +153,22 @@
             arr.push(o)
           }
         }
-        console.log(arr)
         return arr
       },
       otcCountrysMap() {
+        let arr = []
         if (this.AdList.otcCountrysMap) {
-          return this.AdList.otcCountrysMap
+          for(let i in this.AdList.otcCountrysMap){
+            let o = {}
+            o[i] = this.AdList.otcCountrysMap[i]
+            arr.push(o)
+          }
+        }
+        return arr
+      },
+      tradeList() {
+        if(this.AdList.apiQueryResultMiniVo){
+          return this.AdList.apiQueryResultMiniVo.list || []
         }
         return []
       }
