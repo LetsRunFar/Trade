@@ -23,10 +23,8 @@
         <span class="title">价格/{{item.coinTypeEnName}}：</span>
         <span class="content">{{item.price}}CNY {{`（${item.singleMinMoneyTotal}-${item.singleMaxMoneyTotal}）`}}</span>
       </li>
-      <li>
-        <span class="title">价格/美元：</span>
-        <span class="content">{{item.price | toUSDT}}CNY {{`（${item.singleMinMoneyTotal}-${item.singleMaxMoneyTotal}）`}}</span>
-      </li>
+
+      {{$store}}
     </ul>
   </div>
 </template>
@@ -34,6 +32,8 @@
 <script>
   export default {
     name: "tradeItem",
+    beforeMount(){
+    },
     data(){
       return {
         shopNameEnums: {
@@ -45,7 +45,7 @@
     filters: {
       toUSDT(val){
         if(val && !isNaN(val)){
-          return (val/$store.getters.priceOfUSDT).toFixed(2)
+          return val
         }
         return 0.00
       }

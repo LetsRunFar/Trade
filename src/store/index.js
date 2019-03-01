@@ -16,3 +16,14 @@ const mutations = {
 const action = {
   commitPriceOfUSDT:({commit}, priceOfUSDT) => commit('setPriceOfUSDT', priceOfUSDT)
 }
+
+const getters = {
+  priceOfUSDT: state => state.priceOfUSDT
+}
+
+export default new vuex.Store({
+  state,
+  mutations,
+  action,
+  getters
+})
