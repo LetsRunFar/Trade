@@ -3,6 +3,7 @@ const getApi = {
   getValidMsg: '/getValidMsg',
   queryOrderIn: '/queryOrderIn',
   queryOrderOut: '/queryOrderOut',
+  otcAdList: '/otcAdList'
 }
 const postApi = {
   login: '/login',

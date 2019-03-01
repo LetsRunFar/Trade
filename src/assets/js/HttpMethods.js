@@ -21,5 +21,8 @@ export default {
   },
   queryOrderOut(){
     return http.get(mainUrl + '/queryOrderOut')
+  },
+  otcAdList(){
+    return http.get(mainUrl + '/otcAdList')
   }
 }
