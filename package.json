@@ -19,7 +19,8 @@
     "vux": "^2.9.2",
     "vux-loader": "^1.2.9",
     "es6-promise": "^4.2.6",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
