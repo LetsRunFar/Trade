@@ -90,3 +90,26 @@ button[primary]{
   color: #fff;
   font-size: 14px;
 }
+.icon{
+  display: inline-block;
+}
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.2rem;
+  border-color: transparent transparent #ddd transparent;
+}
+.triangle-up.active{
+  border-color: transparent transparent #0297e2 transparent;
+}
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.2rem;
+  border-color: #ddd transparent transparent transparent;
+}
+.triangle-down.active{
+  border-color: #0297e2 transparent transparent transparent;
+}

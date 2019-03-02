@@ -6,8 +6,11 @@ import router from './router'
 import store from './store'
 import 'font-awesome/css/font-awesome.css'
 
-import  { ToastPlugin } from 'vux'
+import  { ToastPlugin, LoadingPlugin, ConfirmPlugin, DatetimePlugin } from 'vux'
+Vue.use(ConfirmPlugin)
+Vue.use(LoadingPlugin)
 Vue.use(ToastPlugin)
+Vue.use(DatetimePlugin)
 
 Vue.config.productionTip = false
 

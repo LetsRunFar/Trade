@@ -1,6 +1,9 @@
 <template>
   <div class="index-wrap">
-    <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>OTC交易中心</x-header>
+    <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>
+      OTC交易中心
+      <router-link :to="{name: 'order'}" slot="right">订单</router-link>
+    </x-header>
     <div @click="showSearchWrap = !showSearchWrap" commonColor class="search">
       <icon class="search-icon" type="search"></icon>
       <span class="text">搜索</span>
@@ -11,7 +14,7 @@
         <group class="search-group">
           <selector
             placeholder="请选择分类"
-            v-model="searchModel.class"
+            v-model="queryTradeParam.CoinUnits"
             :options="coinTypeEnNameMap">
           </selector>
         </group>
@@ -19,10 +22,10 @@
         <group class="search-group">
           <selector
             placeholder="请选择币种"
-            v-model="searchModel.area"
+            v-model="queryTradeParam.LangID"
             :options="otcCountrysMap">
           </selector>
-          <x-button primary style="font-size: 0.373rem; margin-top: 0.3rem;">提交</x-button>
+          <x-button @click.native="searchQuery" primary style="font-size: 0.373rem; margin-top: 0.3rem; line-height: 3;">提交</x-button>
         </group>
       </div>
     </transition>
@@ -31,48 +34,109 @@
         <tab-item selected @on-item-click="queryTradeIn">我要买入</tab-item>
         <tab-item @on-item-click="queryTradeOut">我要卖出</tab-item>
       </tab>
-      <scroller class="list-scroll">
-        <div v-if="tradeList.length <= 0" class="null-wrap"></div>
-        <trade-item v-else class="each-trade" v-for="(item, index) in tradeList" :item="item" :key="'trade' + index"/>
+      <p @click="queryTradeParam.Asc = !queryTradeParam.Asc" class="sort-type">
+        查询结果：<span>按价格排序</span>
+        <i class="icon triangle-up" :class="{'active': queryTradeParam.Asc}"></i>
+        <i class="icon triangle-down" :class="{'active': !queryTradeParam.Asc}"></i>
+      </p>
+      <scroller
+        lock-x
+        scrollbar-y
+        use-pullup
+        @on-pullup-loading="loadTradeList"
+        :height="pageViewHeight"
+        :pullup-config="{loadingContent: 'Loading...'}"
+        ref="scrollerBottom">
+        <trade-item class="each-trade" :items="tradeList" :itemType="queryTradeParam.TypeEq" />
       </scroller>
     </div>
   </div>
 </template>
 
 <script>
-  import {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller} from 'vux'
+  import {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller, LoadMore} from 'vux'
   import TradeItem from '@/components/tradeItem'
   import HttpMethods from "../assets/js/HttpMethods";
 
   export default {
     name: "index",
-    components: {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller, TradeItem},
+    components: {XHeader, Icon, Group, Selector, XButton, Tab, TabItem, Scroller, TradeItem, LoadMore},
     data() {
       return {
+        n1: 60,
         showSearchWrap: false,
-        searchModel: {
-          class: '',
-          area: ''
-        },
-        AdList: {}
+        pageViewHeight: '',
+        AdList: {},
+        tradeList: [],
+        queryTradeParam: {
+          CoinUnits: '',
+          LangID: '',
+          pageNum: 0,
+          rowsPerPage: 10,
+          TypeEq: 1, // 1：买入 0：卖出
+          StatusEq: 1,
+          Asc: true
+        }
       }
     },
     beforeMount(){
-      this.queryTrade()
+      this.queryTrade().then().catch(e => {
+
+      })
+    },
+    mounted(){
+      /*获得展示页面的高度*/
+      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      this.pageViewHeight = windowHeight - 165 + 'px';
     },
     methods: {
+      loadTradeList () {
+        this.queryTrade()
+        setTimeout(() => {
+          this.$refs.scrollerBottom.donePullup()
+        }, 100)
+      },
+      searchQuery(){
+        this.resetList()
+        this.queryTrade().then((res) => {
+          // 重置表单
+          if(res.success){
+            this.$refs.scrollerBottom.reset({
+              top: 0
+            })
+          } else {
+            this.$vux.toast.text(res.msg)
+          }
+          this.showSearchWrap = false
+        })
+      },
+      resetList(){
+        this.queryTradeParam.pageNum = 0
+        this.AdList = {}
+        this.tradeList = []
+      },
       async queryTrade() {
-        let res = await HttpMethods.otcAdList()
+        this.queryTradeParam.pageNum ++
+        let res = await HttpMethods.otcAdList(this.queryTradeParam)
         if (res.success) {
+          if(res.data.apiQueryResultMiniVo.list.length === 0){
+            return this.$vux.toast.text('没有更多数据了')
+          }
           this.AdList = res.data
+          this.queryTradeParam.pageNum = res.data.apiQueryResultMiniVo.pageNum
+          this.queryTradeParam.rowsPerPage = res.data.apiQueryResultMiniVo.rowsPerPage
+          this.tradeList = this.tradeList.concat(res.data.apiQueryResultMiniVo.list)
+          return Promise.resolve({success: true})
         }
-        this.showSearchWrap = false
+        return Promise.resolve({msg: res.msg || '查询数据失败'})
       },
       queryTradeIn() {
-
+        this.queryTradeParam.TypeEq = 1
+        this.searchQuery()
       },
       queryTradeOut() {
-
+        this.queryTradeParam.TypeEq = 0
+        this.searchQuery()
       }
     },
     computed: {
@@ -81,7 +145,8 @@
         if (this.AdList.coinTypeEnNameMap) {
           for(let i in this.AdList.coinTypeEnNameMap){
             let o = {}
-            o[i] = this.AdList.coinTypeEnNameMap[i]
+            o.key = i
+            o.value = this.AdList.coinTypeEnNameMap[i]
             arr.push(o)
           }
         }
@@ -92,17 +157,25 @@
         if (this.AdList.otcCountrysMap) {
           for(let i in this.AdList.otcCountrysMap){
             let o = {}
-            o[i] = this.AdList.otcCountrysMap[i]
+            o.key = i
+            o.value = this.AdList.otcCountrysMap[i]
             arr.push(o)
           }
         }
         return arr
+      }
+    },
+    watch: {
+      'AdList.priceOfUSDT': {
+        handler(val){
+          this.$store.dispatch('setPriceOfUSDT', val)
+        },
+        deep: true
       },
-      tradeList() {
-        if(this.AdList.apiQueryResultMiniVo){
-          return this.AdList.apiQueryResultMiniVo.list || []
+      'queryTradeParam.Asc': {
+        handler(){
+          this.searchQuery()
         }
-        return []
       }
     }
   }
@@ -194,10 +267,7 @@
 
   .list-wrap {
     width: 100%;
-  }
-
-  .list-scroll {
-    min-height: 80vh;
+    text-align: left;
   }
 
   .slide-enter-active, .slide-leave-active {
@@ -207,5 +277,34 @@
   .slide-enter, .slide-leave-to {
     transform: translateY(-1rem);
     opacity: 0;
+  }
+  .sort-type{
+    position: relative;
+    margin: 0.3rem 0.3rem 0;
+    display: inline-block;
+    height: 1rem;
+    line-height: 1rem;
+    color: #dddddd;
+    font-size: 0.372rem;
+    font-weight: 600;
+    &>span{
+      color: #0297e2;
+    }
+    .triangle-up{
+      position: absolute;
+      margin-top: -0.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -0.5rem;
+      border-width: 0.14rem;
+    }
+    .triangle-down{
+      position: absolute;
+      margin-top: 0.16rem;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -0.5rem;
+      border-width: 0.14rem;
+    }
   }
 </style>

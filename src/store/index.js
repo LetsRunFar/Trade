@@ -8,22 +8,26 @@ const state = {
 }
 
 const mutations = {
-  setPriceOfUSDT(state,data){
-    this.priceOfUSDT = data
+  SET_PRICE_OF_USDT(state,data){
+    state.priceOfUSDT = data
   }
 }
 
-const action = {
-  commitPriceOfUSDT:({commit}, priceOfUSDT) => commit('setPriceOfUSDT', priceOfUSDT)
+const actions = {
+  setPriceOfUSDT:({commit}, priceOfUSDT) => {
+    commit('SET_PRICE_OF_USDT', priceOfUSDT)
+  }
 }
 
 const getters = {
   priceOfUSDT: state => state.priceOfUSDT
 }
 
-export default new vuex.Store({
+const store = new vuex.Store({
   state,
   mutations,
-  action,
+  actions,
   getters
 })
+vue.prototype.$store = store
+export default store

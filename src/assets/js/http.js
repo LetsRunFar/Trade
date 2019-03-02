@@ -26,11 +26,14 @@ Vue.axios.interceptors.response.use(
 );
 
 export default {
-  get(url) {
+  get(url, data) {
+    Vue.$vux.loading.show()
     let promise = new Promise((resolve, reject) => {
-      Vue.axios(url).then(response => {
+      Vue.axios.get(url, {params: data}).then(response => {
+        Vue.$vux.loading.hide()
         resolve(response.data);
       }).catch(error => {
+        Vue.$vux.loading.hide()
         Vue.$vux.toast.text('网络异常，请检查您的网络');
         reject(error);
       });
@@ -38,12 +41,15 @@ export default {
     return promise;
   },
   post(url, data) {
+    Vue.$vux.loading.show()
     let promise = new Promise((resolve, reject) => {
       Vue.axios.post(url, qs.stringify(data), {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).then(response => {
+        Vue.$vux.loading.hide()
         resolve(response.data);
       }).catch(error => {
+        Vue.$vux.loading.hide()
         Vue.$vux.toast.text('网络异常，请检查您的网络');
         reject(error);
       });
