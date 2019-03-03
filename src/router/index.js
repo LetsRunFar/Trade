@@ -6,6 +6,7 @@ import Setting from '@/pages/setting'
 import BindEmail from '@/pages/bindEmail'
 import Mine from '@/pages/mine'
 import Index from '@/pages/index'
+import Purchase from '@/pages/purchase'
 
 Vue.use(Router)
 
@@ -37,9 +38,9 @@ export default new Router({
       component: BindEmail
     },
     {
-      path: '/mine',
-      name: 'mine',
-      component: Mine
+      path: '/purchase',
+      name: 'purchase',
+      component: Purchase
     }
   ]
 })
