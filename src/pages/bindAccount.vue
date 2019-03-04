@@ -1,13 +1,13 @@
 <template>
   <div class="form-wrap">
     <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>
-      {{$t('bindEmail.title')}}
+      {{$t('bindAccount.title')}}
     </x-header>
     <p class="each-input password" commonColor>
-      <input class="signle-input" :placeholder="$t('bindEmail.password')" v-model="passwordModel" type="password" />
+      <input class="signle-input" :placeholder="$t('bindAccount.password')" v-model="passwordModel" type="password" />
     </p>
     <p class="each-input email" commonColor>
-      <input class="signle-input" :placeholder="$t('bindEmail.email')" v-model="emailModel" type="text" />
+      <input class="signle-input" :placeholder="$t('bindAccount.account')" v-model="emailModel" type="text" />
     </p>
     <x-button primary style="font-size: 0.373rem; margin-top: 1rem; width: 90%; margin-left: 5%; line-height: 2.8;">{{$t('common.insure')}}</x-button>
   </div>

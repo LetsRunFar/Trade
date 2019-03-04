@@ -3,29 +3,29 @@
     <div v-if="items.length > 0">
       <ul v-for="(item, index) in items" :key="'tradeItem' + index" class="item-list">
         <li>
-          <span class="title">商<i class="font-spacing"></i>家：</span>
+          <span class="title">{{$t('tradeItem.seller')}}</span>
           <span class="content">{{shopNameEnums[item.type]}}</span>
         </li>
         <li>
-          <span class="title">近30日成交：</span>
+          <span class="title">{{$t('tradeItem.tradeIn30days')}}：</span>
           <span class="content">{{item.recentThirtyDaysDeal}}</span>
         </li>
         <li>
-          <span class="title">支付方式：</span>
+          <span class="title">{{$t('tradeItem.payWays')}}：</span>
           <span class="content">
           <img class="payway" v-for="(payway, index) in item.payTypesUrls" :key="'payway'+index" :src="payway" />
         </span>
         </li>
         <li>
-          <span class="title">数<i class="font-spacing"></i>量：</span>
+          <span class="title">{{$t('tradeItem.number')}}</span>
           <span class="content">{{item.initAmount}}</span>
         </li>
         <li>
-          <span class="title">价格/{{item.coinTypeEnName}}：</span>
+          <span class="title">{{$t('tradeItem.price')}}/{{item.coinTypeEnName}}：</span>
           <span class="content">{{item.price}}CNY {{`（${item.singleMinMoneyTotal}-${item.singleMaxMoneyTotal}）`}}</span>
         </li>
         <li>
-          <span class="title">价格/美元：</span>
+          <span class="title">{{$t('tradeItem.price')}}/{{$t('tradeItem.dollar')}}</span>
           <span class="content">{{item.price | toUSDT}} （{{item.singleMinMoneyTotal | toUSDT}}-{{item.singleMaxMoneyTotal | toUSDT}}）</span>
         </li>
         <li>
@@ -33,15 +33,15 @@
           <span class="content">$1 = {{$store.getters.priceOfUSDT}}CNY</span>
         </li>
         <li>
-          <span class="title">操<i class="font-spacing"></i>作</span>
+          <span class="title">{{$t('tradeItem.handle')}}</span>
           <span class="content">
-            <x-button class="action-button" primary @click.native="buyAction" v-if="itemType === 1">买入</x-button>
-            <x-button class="action-button" primary @click.native="sealAction" v-else-if="itemType === 0">卖出</x-button>
+            <x-button class="action-button" primary @click.native="buyAction" v-if="itemType === 1">{{$t('tradeItem.buy')}}</x-button>
+            <x-button class="action-button" primary @click.native="sealAction" v-else-if="itemType === 0">{{$t('tradeItem.sale')}}</x-button>
           </span>
         </li>
       </ul>
     </div>
-    <div v-else class="null-wrap"></div>
+    <div v-else class="null-wrap" :nullWords="$t('common.empty')"></div>
   </div>
 </template>
 

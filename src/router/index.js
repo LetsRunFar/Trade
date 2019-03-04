@@ -4,9 +4,11 @@ import Login from '@/pages/login'
 import Order from '@/pages/order'
 import Setting from '@/pages/setting'
 import BindEmail from '@/pages/bindEmail'
+import BindAccount from '@/pages/bindAccount'
 import Mine from '@/pages/mine'
 import Index from '@/pages/index'
 import Purchase from '@/pages/purchase'
+import SetLang from '@/pages/setLanguage'
 
 Vue.use(Router)
 
@@ -38,9 +40,24 @@ export default new Router({
       component: BindEmail
     },
     {
+      path: '/bindAccount',
+      name: 'bindAccount',
+      component: BindAccount
+    },
+    {
       path: '/purchase',
       name: 'purchase',
       component: Purchase
+    },
+    {
+      path: '/mine',
+      name: 'mine',
+      component: Mine
+    },
+    {
+      path: '/lang',
+      name: 'setLang',
+      component: SetLang
     }
   ]
 })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>
-      购买
+      {{$t('common.buy')}}
     </x-header>
     <price-infos :currentTab.sync="currentTab" :coinTypes="coinTypes" class="price-infos" />
   </div>

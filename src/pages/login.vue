@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap">
-    <x-header class="header" :left-options="{backText: ''}" empty fixed>登录</x-header>
+    <x-header class="header" :left-options="{backText: ''}" empty fixed>{{$t('loginPage.login')}}</x-header>
     <div class="body">
       <div class="spaceship">
         <img src="/static/images/login.png" class="ufo-float">
@@ -8,12 +8,13 @@
       <div class="official-address">www.ufo.club</div>
       <login-form ref="loginForm"></login-form>
       <p class="forget-wrap">
-        <router-link style="color: #0297e2;" to="/forget">忘记密码？</router-link>
+        <router-link style="color: #0297e2;" to="/forget">{{$t('loginPage.forget')}}</router-link>
       </p>
       <div class="btn-wrap">
-        <x-button @click.native="doLogin" class="login-btn">登录</x-button>
-        <x-button @click.native="$router.push({name: 'register'})" class="register-btn" plain>新用户注册</x-button>
+        <x-button @click.native="doLogin" class="login-btn">{{$t('loginPage.login')}}</x-button>
+        <x-button @click.native="$router.push({name: 'register'})" class="register-btn" plain>{{$t('loginPage.register')}}</x-button>
       </div>
+      <p class="setLang" @click="$router.push({name: 'setLang'})">{{$t('setLang.title')}}</p>
     </div>
   </div>
 </template>
@@ -90,5 +91,8 @@
       border: solid 1px #0297e2;
       border-radius: 3px;
     }
+  }
+  .setLang{
+    color: #ffffff;
   }
 </style>

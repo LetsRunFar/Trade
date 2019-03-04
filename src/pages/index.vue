@@ -1,41 +1,41 @@
 <template>
   <div class="index-wrap">
     <x-header class="header" commonColor :left-options="{backText: ''}" empty fixed>
-      OTC交易中心
-      <router-link :to="{name: 'order'}" slot="right">订单</router-link>
+      {{$t('tradePage.title')}}
+      <router-link :to="{name: 'order'}" slot="right">{{$t('tradePage.order')}}</router-link>
     </x-header>
     <div @click="showSearchWrap = !showSearchWrap" commonColor class="search">
       <icon class="search-icon" type="search"></icon>
-      <span class="text">搜索</span>
+      <span class="text">{{$t('common.search')}}</span>
     </div>
     <transition name="slide">
       <div class="search-wrap" v-show="showSearchWrap" commonColor>
-        <p class="title">分类：</p>
+        <p class="title">{{$t('tradePage.sort')}}</p>
         <group class="search-group">
           <selector
-            placeholder="请选择分类"
+            :placeholder="$t('tradePage.sortPlaceholder')"
             v-model="queryTradeParam.CoinUnits"
             :options="coinTypeEnNameMap">
           </selector>
         </group>
-        <p class="title">地区：</p>
+        <p class="title">{{$t('tradePage.area')}}：</p>
         <group class="search-group">
           <selector
-            placeholder="请选择币种"
+            :placeholder="$t('tradePage.areaPlaceholder')"
             v-model="queryTradeParam.LangID"
             :options="otcCountrysMap">
           </selector>
-          <x-button @click.native="searchQuery" primary style="font-size: 0.373rem; margin-top: 0.3rem; line-height: 3;">提交</x-button>
+          <x-button @click.native="searchQuery" primary style="font-size: 0.373rem; margin-top: 0.3rem; line-height: 3;">{{$t('common.submit')}}</x-button>
         </group>
       </div>
     </transition>
     <div class="list-wrap">
       <tab :line-width="2" active-color="#0297e2" class="trade-tab" commonColor>
-        <tab-item selected @on-item-click="queryTradeIn">我要买入</tab-item>
-        <tab-item @on-item-click="queryTradeOut">我要卖出</tab-item>
+        <tab-item selected @on-item-click="queryTradeIn">{{$t('tradePage.tradeIn')}}</tab-item>
+        <tab-item @on-item-click="queryTradeOut">{{$t('tradePage.tradeOut')}}</tab-item>
       </tab>
       <p @click="queryTradeParam.Asc = !queryTradeParam.Asc" class="sort-type">
-        查询结果：<span>按价格排序</span>
+        {{$t('tradePage.queryResult')}}：<span>{{$t('tradePage.orderByPrice')}}</span>
         <i class="icon triangle-up" :class="{'active': queryTradeParam.Asc}"></i>
         <i class="icon triangle-down" :class="{'active': !queryTradeParam.Asc}"></i>
       </p>
@@ -120,7 +120,7 @@
         let res = await HttpMethods.otcAdList(this.queryTradeParam)
         if (res.success) {
           if(res.data.apiQueryResultMiniVo.list.length === 0){
-            return this.$vux.toast.text('没有更多数据了')
+            return this.$vux.toast.text(this.$t('common.noMore'))
           }
           this.AdList = res.data
           this.queryTradeParam.pageNum = res.data.apiQueryResultMiniVo.pageNum
@@ -128,7 +128,7 @@
           this.tradeList = this.tradeList.concat(res.data.apiQueryResultMiniVo.list)
           return Promise.resolve({success: true})
         }
-        return Promise.resolve({msg: res.msg || '查询数据失败'})
+        return Promise.resolve({msg: res.msg || this.$t('common.queryFailed')})
       },
       queryTradeIn() {
         this.queryTradeParam.TypeEq = 1

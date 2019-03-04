@@ -11,26 +11,26 @@
       <div class="des">
         <popover class="popover" placement="right">
           <div slot="content" class="popover-demo-content">
-            非最终交易单价，仅供参考
+            {{$t('priceInfo.priceTip')}}
           </div>
           <img width="20" src="/static/images/question.png">
         </popover>
         <span class="tip">
-        {{currentTab.name}}参考单价：
+        {{currentTab.name}}{{$t('priceInfo.referPrice')}}：
       </span>
         <span class="price">
         {{price}} CNY/{{currentTab.name}}
       </span>
       </div>
       <div class="purchase-inputs">
-        <span @click="buyType = 1" class="tab" :class="{'active': buyType == 1}">按金额购买</span>
-        <span @click="buyType = 2" class="tab" :class="{'active': buyType == 2}">按数量购买</span>
+        <span @click="buyType = 1" class="tab" :class="{'active': buyType == 1}">{{$t('priceInfo.buyWithPrice')}}</span>
+        <span @click="buyType = 2" class="tab" :class="{'active': buyType == 2}">{{$t('priceInfo.buyWithAmount')}}</span>
         <div class="input-wrap">
           <x-input :show-clear="false" :placeholder="inputsPlaceholder" class="inputs" v-model="buyTotal"></x-input>
           <span class="unit">{{currentTab.name}}</span>
         </div>
       </div>
-      <p style="margin: 0.3rem 0;">选择付款方式</p>
+      <p style="margin: 0.3rem 0;">{{$t('priceInfo.chooseBuyWays')}}</p>
       <flexbox class="payways">
         <flexbox-item
           @click.native="currentPayway = payway.value"
@@ -46,23 +46,23 @@
       </flexbox>
       <ul class="price-result">
         <li class="clear">
-          <span class="fl">成交单价：</span>
+          <span class="fl">{{$t('priceInfo.unitPrice')}}：</span>
           <span class="fr price">{{price}} CNY/{{currentTab.name}}</span>
         </li>
         <li class="clear">
-          <span class="fl">成交数量：</span>
+          <span class="fl">{{$t('priceInfo.amount')}}：</span>
           <span class="fr">{{buyTotal || '--'}}</span>
         </li>
         <li class="clear">
-          <span class="fl">成交总额：</span>
+          <span class="fl">{{$t('priceInfo.totalPrice')}}：</span>
           <span class="fr">{{totalMoney}}</span>
         </li>
       </ul>
       <x-button class="purchase-button">
         <img width="26" src="/static/images/lighting.png" style="vertical-align: middle;">
-        一键购买
+        {{$t('priceInfo.quicklyBuy')}}
       </x-button>
-      <p style="font-size: 0.32rem; margin-top: 0.3rem;">*50000元以下极速购买，按需获取最优单价</p>
+      <p style="font-size: 0.32rem; margin-top: 0.3rem;">*{{$t('priceInfo.tradeTip')}}</p>
     </div>
   </div>
 </template>
@@ -90,15 +90,15 @@
         buyTotal: '',
         payways: [
           {
-            name: '支付宝',
+            name: this.$t('common.aliPay'),
             value: 1
           },
           {
-            name: '银行卡',
+            name:  this.$t('common.bankCard'),
             value: 2
           },
           {
-            name: '微信',
+            name:  this.$t('common.weChat'),
             value: 3
           }
         ],
@@ -113,9 +113,9 @@
     computed:{
       inputsPlaceholder(){
         if(this.buyType === 1){
-          return '请输入购买总金额'
+          return this.$t('priceInfo.totalPricePlaceholder')
         } else if(this.buyType === 2){
-          return '请输入购买数量'
+          return this.$t('priceInfo.amountPlaceholder')
         }
         return ''
       },

@@ -34,7 +34,7 @@ export default {
         resolve(response.data);
       }).catch(error => {
         Vue.$vux.loading.hide()
-        Vue.$vux.toast.text('网络异常，请检查您的网络');
+        Vue.$vux.toast.text(Vue.prototype.$st('common.netError'));
         reject(error);
       });
     });
@@ -50,7 +50,7 @@ export default {
         resolve(response.data);
       }).catch(error => {
         Vue.$vux.loading.hide()
-        Vue.$vux.toast.text('网络异常，请检查您的网络');
+        Vue.$vux.toast.text(Vue.prototype.$st('common.netError'));
         reject(error);
       });
     });
@@ -85,7 +85,7 @@ export default {
         }
         resolve(response.data);
       }).catch(error => {
-        Vue.$vux.toast.text('网络异常，请检查您的网络');
+        Vue.$vux.toast.text(Vue.prototype.$st('common.netError'));
         reject(error);
       });
     });

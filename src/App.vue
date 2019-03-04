@@ -10,11 +10,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+}
+/deep/.header .vux-header-title{
+  font-size: 0.427rem;
 }
 </style>

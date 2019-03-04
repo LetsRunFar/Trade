@@ -2,21 +2,21 @@
   <div class="form-wrap">
     <div>
       <p class="each-input userName">
-        <input class="signle-input" placeholder="邮箱/手机号" v-model="userNameModel" type="text" />
+        <input class="signle-input" :placeholder="$t('loginPage.account')" v-model="userNameModel" type="text" />
         <span @click="getMobileTypeList" class="mobile-type" v-show="showMobileHead">{{mobileType}}</span>
       </p>
       <p class="each-input password">
         <input
           v-model="passwordModel"
           class="signle-input"
-          placeholder="密码"
+          :placeholder="$t('loginPage.password')"
           :type="hidePwd ? 'password' : 'text'">
         <i @click="hidePwd = !hidePwd" :class="{'fa-eye-slash': hidePwd, 'fa-eye': !hidePwd ,'fa': true}"></i>
       </p>
       <p class="each-input validMsg" v-if="showValidMsg">
-        <input class="signle-input" placeholder="短信验证码" v-model="validMsgModel" type="text" />
+        <input class="signle-input" :placeholder="$t('loginPage.validMsg')" v-model="validMsgModel" type="text" />
         <span @click="getValidMsg" class="register-memberyzm">
-        获取验证码
+        {{$t('loginPage.getValidMsg')}}
       </span>
       </p>
     </div>
@@ -79,14 +79,14 @@
       },
       async validForm(){
         if (this.userNameModel.length === 0) {
-          this.$vux.toast.text('请输入邮箱/手机号')
+          this.$vux.toast.text(this.$t('loginPage.accountTip'))
           return
         } else if(this.passwordModel.length === 0){
-          this.$vux.toast.text('请输入密码')
+          this.$vux.toast.text(this.$t('loginPage.passwordTip'))
           return
         }
         if(this.showValidMsg && this.validMsgModel.length === 0){
-          this.$vux.toast.text('请输入验证码')
+          this.$vux.toast.text(this.$t('loginPage.validMsgTip'))
           return
         }
         let param = {

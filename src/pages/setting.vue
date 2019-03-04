@@ -1,15 +1,17 @@
 <template>
   <div class="setting-wrap">
-    <x-header class="header" :left-options="{backText: ''}" commonColor fixed>用户设置</x-header>
+    <x-header class="header" :left-options="{backText: ''}" commonColor fixed>
+      {{$t('setting.title')}}
+    </x-header>
     <group>
       <cell-box class="links" commonColor is-link :link="{path: '/bindEmail'}">
-        邮箱绑定
+        {{$t('setting.bindEmail')}}
       </cell-box>
       <cell-box class="links" commonColor is-link :link="{path: '/bindAccount'}">
-        账户绑定
+        {{$t('setting.bindAccount')}}
       </cell-box>
-      <cell-box class="links" commonColor is-link :link="{path: '/setLang'}">
-        语言设置
+      <cell-box class="links" commonColor is-link :link="{path: '/lang'}">
+        {{$t('setting.setLanguage')}}
       </cell-box>
     </group>
   </div>

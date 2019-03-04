@@ -1,22 +1,24 @@
 <template>
   <div class="order-wrap">
-    <x-header commonColor class="header" :left-options="{backText: ''}" empty fixed>订单</x-header>
+    <x-header commonColor class="header" :left-options="{backText: ''}" empty fixed>
+      {{$t('order.title')}}
+    </x-header>
     <div @click="showSearchWrap = !showSearchWrap" commonColor class="search">
       <icon class="search-icon" type="search"></icon>
-      <span class="text">搜索</span>
+      <span class="text">{{$t('common.search')}}</span>
     </div>
     <transition name="slide">
       <div class="search-wrap" v-show="showSearchWrap" commonColor>
-        <p class="title">状态搜索</p>
+        <p class="title">{{$t('order.searchStatus')}}</p>
         <group class="search-group">
           <selector
-            placeholder="下拉选择状态"
+            :placeholder="$t('order.statusPlaceholder')"
             v-model="searchModel.status"
             :options="Enums.status">
           </selector>
           <flexbox :gutter="30">
             <flexbox-item>
-              <p>开始时间</p>
+              <p>{{$t('order.beginTime')}}</p>
               <datetime
                 class="time-picker"
                 start-date="2019:01:01"
@@ -24,7 +26,7 @@
               </datetime>
             </flexbox-item>
             <flexbox-item>
-              <p>结束时间</p>
+              <p>{{$t('order.endTime')}}</p>
               <datetime
                 class="time-picker"
                 start-date="2019:01:01"
@@ -32,14 +34,16 @@
               </datetime>
             </flexbox-item>
           </flexbox>
-          <x-button @click.native="queryOrder" primary style="font-size: 0.373rem; margin-top: 0.3rem;">提交</x-button>
+          <x-button @click.native="queryOrder" primary style="font-size: 0.373rem; margin-top: 0.3rem;">
+            {{$t('common.submit')}}
+          </x-button>
         </group>
       </div>
     </transition>
     <div class="list-wrap">
       <tab :line-width="2" active-color="#0297e2" class="order-tab" commonColor>
-        <tab-item selected @on-item-click="queryOrderIn">买入订单</tab-item>
-        <tab-item @on-item-click="queryOrderOut">卖出订单</tab-item>
+        <tab-item selected @on-item-click="queryOrderIn">{{$t('order.orderIn')}}</tab-item>
+        <tab-item @on-item-click="queryOrderOut">{{$t('order.orderOut')}}</tab-item>
       </tab>
       <scroller class="list-scroll">
         <div v-if="orderList.length <= 0" class="null-wrap"></div>
@@ -85,8 +89,8 @@
         },
         searchModel: {
           status: '',
-          beginTime: '年/月/日',
-          endTime: '年/月/日'
+          beginTime: this.$t('order.timePlaceholder'),
+          endTime: this.$t('order.timePlaceholder')
         },
         showSearchWrap: false
       }

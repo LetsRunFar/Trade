@@ -7,22 +7,22 @@
       </div>
       <div class="account">
         <p class="des">
-          我的资产
+          {{$t('mine.asset')}}
         </p>
         <p class="main">
           {{myAccount}}
         </p>
         <p class="des">
-          资产总额（元）
+          {{$t('mine.allAssets')}}
         </p>
       </div>
     </div>
     <group>
       <cell-box class="links" commonColor is-link :link="{path: '/setting'}">
-        用户设置
+        {{$t('mine.setting')}}
       </cell-box>
     </group>
-    <x-button primary plain class="logout">退出</x-button>
+    <x-button primary plain class="logout">{{$t('common.quit')}}</x-button>
   </div>
 </template>
 

@@ -83,6 +83,7 @@ button[primary]{
 .null-wrap:after {
   position: absolute;
   content: '暂无数据';
+  content: attr(nullWords);
   bottom: -14px;
   left: 0;
   width: 100%;
