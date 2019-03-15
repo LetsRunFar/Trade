@@ -9,6 +9,7 @@ import Mine from '@/pages/mine'
 import Index from '@/pages/index'
 import Purchase from '@/pages/purchase'
 import SetLang from '@/pages/setLanguage'
+import Complain from '@/pages/complain'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/lang',
       name: 'setLang',
       component: SetLang
+    },
+    {
+      path: '/complain',
+      name: 'complain',
+      component: Complain
     }
   ]
 })

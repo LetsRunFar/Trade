@@ -83,6 +83,9 @@ module.exports = {
   setLang: {
     title: '语言设置',
   },
+  complain: {
+    title: '申诉'
+  },
   common: {
     search: '搜索',
     buy: '购买',
