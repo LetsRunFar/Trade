@@ -15,7 +15,8 @@ function domain() {
       break;
     default: // 开发环境配置
       domain = {
-        'mainUrl': 'http://localhost/api'
+        'mainUrl': 'http://192.168.0.113/api',
+        'chatUrl': 'http://192.168.0.113:8090'
       }
       break;
   }
