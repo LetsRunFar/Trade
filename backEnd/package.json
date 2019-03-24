@@ -4,11 +4,13 @@
   "description": "测试服务器，调用接口",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node index.js & cd chat & node server.js",
+    "chat": "cd chat & node server.js"
   },
   "author": "lx",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   }
 }

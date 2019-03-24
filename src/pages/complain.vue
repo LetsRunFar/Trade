@@ -140,7 +140,9 @@
     /deep/.weui-cell{
       padding: 10px 0;
       font-size: 14px;
-
+      &:before{
+        border-top: none;
+      }
     }
     /deep/.weui-cells_checkbox .weui-icon-checked:before {
       margin-left: 0;

@@ -65,6 +65,40 @@ button[primary]{
   background: url("/static/images/s1.png") no-repeat;
   background-size: contain;
 }
+.icon-msg {
+  width: 30px;
+  height: 30px;
+  background: url("/static/images/message.png") no-repeat;
+  background-size: contain;
+}
+.icon-alipay {
+  background: url("/static/images/alipay.png") no-repeat;
+  background-size: 100%;
+}
+.icon-wxpay{
+  background: url("/static/images/wxpay.png") no-repeat;
+  background-size: 100%;
+}
+.icon-bankcard{
+  background: url("/static/images/bank_card.png") no-repeat;
+  background-size: 100%;
+}
+.icon-phone{
+  width: 30px;
+  height: 30px;
+  background: url("/static/images/phone.png") no-repeat;
+  background-size: 25px;
+  background-position: center;
+}
+.flex{
+  display: flex;
+}
+.flex.align-v{
+  align-items: center;
+}
+.flex > .flex-1{
+  flex: 1;
+}
 .vux-header[empty]{
   background-color: transparent;
 }

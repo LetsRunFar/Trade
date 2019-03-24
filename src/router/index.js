@@ -10,6 +10,7 @@ import Index from '@/pages/index'
 import Purchase from '@/pages/purchase'
 import SetLang from '@/pages/setLanguage'
 import Complain from '@/pages/complain'
+import Pay from '@/pages/pay'
 
 Vue.use(Router)
 
@@ -64,6 +65,11 @@ export default new Router({
       path: '/complain',
       name: 'complain',
       component: Complain
+    },
+    {
+      path: '/pay',
+      name: 'pay',
+      component: Pay
     }
   ]
 })
