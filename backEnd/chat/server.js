@@ -182,11 +182,21 @@ io.on('connection', function (socket) {
     if (stopEmit) return
     if (users.indexOf(res.userId) !== -1 && usocket[res.userId]) {
       // 返回消息
-      usocket[res.userId].emit('receive private message', res);
+      usocket[res.userId].emit('receive private message', {
+        msg: res.msg,
+        self: true
+      });
     }
     if(onlineStaff.indexOf(res.staffId) !== -1 && staffSocket[res.staffId]){
-      staffSocket[res.staffId].emit('receive private message', res)
+      staffSocket[res.staffId].emit('receive private message', {
+        msg: res.msg,
+        self: false
+      })
     }
+  })
+
+  socket.on('disconnect', function(){
+    console.log('用户'+socket.userId+'断开连接')
   })
 })
 

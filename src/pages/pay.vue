@@ -26,9 +26,9 @@
         <i class="icon icon-phone"></i>
         <p class="tip-sub" style="color: #8a8a8a;">电话</p>
       </a>
-      <div class="icon-text">
+      <div @click="toContact" class="icon-text">
         <i class="icon icon-msg"></i>
-        <p class="tip-sub" @click="toContact">联系对方</p>
+        <p class="tip-sub">联系对方</p>
       </div>
     </div>
     <div v-if="payStatus === 0" class="pay-body">
@@ -192,7 +192,7 @@
   import {XHeader, Clocker, Cell, Group, XButton, Picker, Popup, TransferDom, Previewer} from 'vux'
   import PayInfoLine from '@/components/Pay-Info-Line'
   import GlobalConfig from '@/assets/js/config'
-  const chatUrl = GlobalConfig.domain.chatUrl
+  const chatDomain = GlobalConfig.domain.chatUrl
 
   export default {
     name: "pay",
@@ -381,7 +381,7 @@
         } else if(this.currentPayway === 3){
           return this.bankpayInfo
         }
-      }
+      },
     },
     methods: {
       cancelOrder(){
@@ -406,7 +406,7 @@
         this.$vux.toast.text('进入支付宝付款界面')
       },
       toContact(){
-       window.open(`${chatUrl}/client?cid=${'1'}&sid=${'1'}`, 'target')
+        window.open(`${chatDomain}/client?uid=1&sid=1`, 'blank')
       },
       markPay(){
         this.$vux.toast.text('标记为付款成功')
@@ -571,14 +571,6 @@
       .text-2{
         color: #b1b2b6;
       }
-    }
-  }
-  .payway-picker{
-    /deep/.weui-cells{
-      margin-top: 0;
-    }
-    .head{
-      padding: 10px;
     }
   }
 </style>
