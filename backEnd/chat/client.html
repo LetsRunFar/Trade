@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>联系卖家</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <style>
-
     *{
       margin: 0;
       padding: 0;
@@ -190,8 +191,6 @@
       }
     }
   </style>
-  <title>在线一对多聊天室</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 <body>
   <div class="user-info flex">
@@ -225,15 +224,22 @@
     let input = document.getElementById('msgInput')
     let submit = document.getElementById('msgSubmit')
     let socket = io()
-
-    socket.emit('new chat', 1)
+    let userInfo = {
+      customer: {
+        id: 1,
+        isSender: true
+      },
+      service: {
+        id: 1
+      }
+    }
+    socket.emit('new chat', userInfo)
 
     submit.addEventListener('click', function(){
         if(input.value){
           socket.emit('send private message', {
               msg: input.value,
-              userId: 1,
-              staffId: 1
+              userInfo
           })
           input.value = ''
         } else {
@@ -241,7 +247,7 @@
         }
     })
 
-    socket.on('receive private message', function(res){
+    socket.on('callback private message', function(res){
       receiveMsg(res)
     })
     socket.on('disconnect', function(){
