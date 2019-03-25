@@ -220,19 +220,29 @@
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  let query = {};
+  (function(){
+    let idInfo = location.search.split('?')[1]
+    let arrIds = idInfo.split('&')
+    arrIds.forEach(eachId => {
+      let split = eachId.split('=')
+      query[split[0]] = split[1]
+    })
+  })();
+
+  let userInfo = {
+    customer: {
+      id: query.cid,
+      isSender: true
+    },
+    service: {
+      id: query.sid
+    }
+  }
   window.onload = () => {
     let input = document.getElementById('msgInput')
     let submit = document.getElementById('msgSubmit')
     let socket = io()
-    let userInfo = {
-      customer: {
-        id: 1,
-        isSender: true
-      },
-      service: {
-        id: 1
-      }
-    }
     socket.emit('new chat', userInfo)
 
     submit.addEventListener('click', function(){

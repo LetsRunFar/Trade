@@ -225,7 +225,7 @@
 <body>
 <div class="user-info flex">
   <p class="flex-1" style="text-align: left;">
-    用户1
+    <span id="userName"></span>
     <i class="icon icon-right-arrow"></i>
   </p>
 </div>
@@ -250,20 +250,32 @@
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  let query = {};
+  (function(){
+    let idInfo = location.search.split('?')[1]
+    let arrIds = idInfo.split('&')
+    arrIds.forEach(eachId => {
+      let split = eachId.split('=')
+      query[split[0]] = split[1]
+    })
+  })();
+  let userInfo = {
+    customer: {
+      id: query.cid
+    },
+    service: {
+      id: query.sid,
+      isSender: true
+    }
+  }
   window.onload = () => {
+    let userName = document.getElementById('userName')
     let input = document.getElementById('msgInput')
     let submit = document.getElementById('msgSubmit')
     let socket = io()
-    let userInfo = {
-      customer: {
-        id: 1
-      },
-      service: {
-        id: 1,
-        isSender: true
-      }
-    }
     socket.emit('new chat', userInfo)
+
+    userName.innerText = '用户'+query.cid
 
     submit.addEventListener('click', function(){
       if(input.value){
