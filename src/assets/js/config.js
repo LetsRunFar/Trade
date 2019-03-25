@@ -10,13 +10,13 @@ function domain() {
     case 'production': // 生产环境配置
       domain = {
         'mainUrl': 'http://www.product.com',
-        'chatUrl': 'http://192.168.0.113:8090'
+        'chatUrl': 'http://chat.product.com'
       }
       break;
     default: // 开发环境配置
       domain = {
-        'mainUrl': 'http://192.168.0.113/api',
-        'chatUrl': 'http://192.168.0.113:8090'
+        'mainUrl': 'http://localhost/api',
+        'chatUrl': 'http://localhost:3000'
       }
       break;
   }

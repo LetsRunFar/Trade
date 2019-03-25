@@ -406,7 +406,7 @@
         this.$vux.toast.text('进入支付宝付款界面')
       },
       toContact(){
-        window.open(`${chatDomain}/client?uid=1&sid=1`, 'blank')
+        window.open(`${chatDomain}/client?cid=1&sid=1`, 'blank')
       },
       markPay(){
         this.$vux.toast.text('标记为付款成功')
